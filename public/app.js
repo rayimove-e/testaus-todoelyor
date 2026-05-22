@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* global document, window, localStorage */
-
+import { loadTasks, saveTasks, generateId } from './tasks.js';
 /**
  * @typedef {Object} Task
  * @property {string} id
@@ -13,7 +13,7 @@
  * @property {number} updatedAt
  */
 
-'use strict';
+('use strict');
 
 (function () {
   // Storage key and helpers
@@ -232,8 +232,8 @@
         status: nextCompleted
           ? 'done'
           : t.status === 'done'
-          ? 'todo'
-          : t.status,
+            ? 'todo'
+            : t.status,
         updatedAt: Date.now(),
       };
       saveTasks(tasks);

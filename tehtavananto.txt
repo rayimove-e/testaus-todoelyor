@@ -1,0 +1,20 @@
+Yksikkötestit
+
+Luodaan yksikkötestejä ToDo-sovelluksen keskeiselle logiikalle:
+
+• uuden tehtävän lisääminen
+• tehtävän poistaminen
+• tehtävän merkitseminen tehdyksi
+• tehtävän muokkaaminen
+• tehtävälistan suodattaminen tilan perusteella
+• virheellisten syötteiden käsittely, esimerkiksi tyhjän tehtävän lisääminen
+
+Testien tarkoituksena on varmistaa, että yksittäiset funktiot toimivat oikein ja palauttavat odotetut tulokset. 
+Testit automatisoidaan ja ne voidaan suorittaa kehitysprosessin aikana esimerkiksi testikomennolla.
+
+Tulokset
+
+Toteutin ToDo-sovellukselle yksikkötestejä Vitest-testikirjastolla. 
+Testit kohdistuvat tehtävien tallennus- ja latauslogiikkaan sekä tunnisteen luomiseen. 
+Testeissä tarkistetaan, että tehtävät voidaan tallentaa localStorageen, ladata takaisin, tyhjä localStorage palauttaa tyhjän listan, virheellinen JSON-data käsitellään turvallisesti ja generateId-funktio palauttaa oikeanmuotoisen tunnisteen. 
+Kaikki kuusi testiä menivät läpi onnistuneesti.
