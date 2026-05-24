@@ -77,17 +77,25 @@ import { loadTasks, saveTasks, generateId } from './tasks.js';
 
   // State
   let tasks = loadTasks();
+  let currentFilter = 'all';
 
   // Render
   function render() {
     list.innerHTML = '';
-    if (!tasks.length) {
+
+    const visibleTasks =
+      currentFilter === 'all'
+        ? tasks
+        : tasks.filter((task) => task.priority === currentFilter);
+
+    if (!visibleTasks.length) {
       emptyState.style.display = 'block';
       return;
     }
+
     emptyState.style.display = 'none';
 
-    tasks
+    visibleTasks
       .sort((a, b) => {
         // Not-done first, then by priority (high->low), then newest first
         if (a.completed !== b.completed) return a.completed ? 1 : -1;
@@ -102,27 +110,27 @@ import { loadTasks, saveTasks, generateId } from './tasks.js';
         li.className = 'task' + (t.completed ? ' done' : '');
         li.dataset.id = t.id;
         li.innerHTML = `
-					<div>
-						<div class="title">${escapeHtml(t.topic)}</div>
-						<div class="desc">${escapeHtml(t.description || '')}</div>
-					</div>
-					<div class="meta">
-						<span class="badge prio-${t.priority}">
-							<span class="dot"></span>
-							${t.priority.charAt(0).toUpperCase() + t.priority.slice(1)}
-						</span>
-					</div>
-					<div class="meta">
-						${badgeForStatus(t.status)}
-					</div>
-					<div class="controls">
-						<button data-action="edit" class="secondary">Edit</button>
-						<button data-action="complete" class="${t.completed ? 'secondary' : ''}">
-							${t.completed ? 'Undo' : 'Complete'}
-						</button>
-						<button data-action="delete" class="danger">Delete</button>
-					</div>
-				`;
+        <div>
+          <div class="title">${escapeHtml(t.topic)}</div>
+          <div class="desc">${escapeHtml(t.description || '')}</div>
+        </div>
+        <div class="meta">
+          <span class="badge prio-${t.priority}">
+            <span class="dot"></span>
+            ${t.priority.charAt(0).toUpperCase() + t.priority.slice(1)}
+          </span>
+        </div>
+        <div class="meta">
+          ${badgeForStatus(t.status)}
+        </div>
+        <div class="controls">
+          <button data-action="edit" class="secondary">Edit</button>
+          <button data-action="complete" class="${t.completed ? 'secondary' : ''}">
+            ${t.completed ? 'Undo' : 'Complete'}
+          </button>
+          <button data-action="delete" class="danger">Delete</button>
+        </div>
+      `;
         list.appendChild(li);
       });
   }
@@ -248,6 +256,18 @@ import { loadTasks, saveTasks, generateId } from './tasks.js';
     }
   });
 
+  const filterButtons = document.querySelectorAll('[data-filter]');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      currentFilter = button.dataset.filter || 'all';
+
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      render();
+    });
+  });
   // Initial paint
   render();
 })();

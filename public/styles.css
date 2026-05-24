@@ -18,8 +18,18 @@ body {
   padding: 0;
 }
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
-    'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -122,23 +132,68 @@ button:disabled {
   gap: 6px;
   align-items: center;
 }
-.pill {
-  background-color: #fff;
+
+.legend .pill {
   font-size: 12px;
   font-weight: bold;
   padding: 2px 8px;
   border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
+
+/* Default inactive styles */
+.pill.all {
+  background: #e5e7eb;
+  color: #374151;
+}
+
 .pill.low {
+  background: #ecfdf5;
   color: #2b8a6e;
 }
+
 .pill.medium {
+  background: #eef2ff;
   color: #3f63cf;
 }
+
 .pill.high {
+  background: #fff1f2;
   color: #c3425b;
 }
 
+/* Hover */
+.legend .pill:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Active selected filter */
+.pill.all.active {
+  background: #111827;
+  color: #ffffff;
+}
+
+.pill.low.active {
+  background: #2b8a6e;
+  color: #ffffff;
+}
+
+.pill.medium.active {
+  background: #3f63cf;
+  color: #ffffff;
+}
+
+.pill.high.active {
+  background: #c3425b;
+  color: #ffffff;
+}
 .task-list {
   list-style: none;
   margin: 0;
